@@ -2,7 +2,10 @@ name: Immortalwrt release
 
 on:
   workflow_dispatch:
-
+  
+env:
+  TZ: Asia/Shanghai
+  
 jobs:
 
   build:
