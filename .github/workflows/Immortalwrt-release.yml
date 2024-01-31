@@ -1,15 +1,7 @@
 name: Immortalwrt release
 
 on:
-  # push:
-  #     branches:
-  #       - master
-  #     paths:
-  #       - 'SWITCH'
-  schedule:
-    - cron: '0 3 1 * *'
-  watch:
-    types: [started]
+  workflow_dispatch:
 
 jobs:
 
