@@ -45,7 +45,7 @@ git clone -b rebase --depth 1 https://github.com/QiuSimons/luci-app-daed-next pa
 find ./package/emortal/daed-next/luci-app-daed-next/root/etc -type f -exec chmod +x {} \;
 
 ## opkg
-cp -f ../SCRIPTS/distfeeds.conf files/etc/opkg/
+cp -f ../PATCH/distfeeds.conf files/etc/opkg/
 
 # 清理可能因patch存在的冲突文件
 find ./ -name *.orig | xargs rm -rf
