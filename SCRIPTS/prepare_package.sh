@@ -6,7 +6,7 @@ clear
 sed -i 's/Os/O2/g' include/target.mk
 # 更新 Feeds
 sed -i '1i src-git mini https://github.com/r1172464137/openwrt_package.git;mini' feeds.conf.default
-sed -i '2i src-git theme https://github.com/r1172464137/openwrt_package.git;themejs' feeds.conf.default
+sed -i '2i src-git theme https://github.com/r1172464137/openwrt_package.git;theme_js' feeds.conf.default
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
