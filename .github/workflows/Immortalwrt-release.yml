@@ -126,7 +126,7 @@ jobs:
         id: create_release
         uses: ncipollo/release-action@v1.12.0
         with:
-          name: ${{ env.release_tag }}-ROM
+          name: OpenWRT-${{ env.release_tag }}-ROM
           allowUpdates: true
           prerelease: false
           tag: ${{ env.release_tag }}
