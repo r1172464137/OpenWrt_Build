@@ -98,8 +98,8 @@ jobs:
           cd openwrt && make -j1 V=s
       - name: Print Disk Space After
         run: df -h
-      - name: Assemble Artifact
-        id: assemble_artifact
+      - name: Organize files
+        id: organize
         run: |
           rm -rf ./artifact/
           mkdir -p ./artifact/
@@ -116,23 +116,28 @@ jobs:
           cd ../openwrt
           cp .config ../artifact/config-full.seed
           ./scripts/diffconfig.sh > ../artifact/config-diff.seed
-          release_tag="OpenWrt-$releaseTag-$(date +%Y-%m-%d)"
-          echo "release_tag=${release_tag}" >>$GITHUB_ENV
+          ls -Ahl
       - name: Upload Artifact
         uses: actions/upload-artifact@main
         with:
-          name: ${{ env.release_tag }}-artifact
+          name: OpenWRT-${{ env.release_tag }}-artifact
           path: ./artifact/
       - name: Create release
         id: create_release
-        uses: ncipollo/release-action@main
+        uses: ncipollo/release-action@v1.12.0
         with:
           name: ${{ env.release_tag }}-ROM
           allowUpdates: true
+          prerelease: false
           tag: ${{ env.release_tag }}
           commit: master
           replacesArtifacts: true
-          draft: false
-          prerelease: false
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: ./artifact/*.gz,./artifact/*.seed,./artifact/*.sha256sum
+          artifacts: ./artifact/*.zip,./artifact/*.seed,./artifact/*.sha256sum
+          
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+            retain_days: 1
+            keep_minimum_runs: 1
+  
