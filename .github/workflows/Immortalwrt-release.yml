@@ -107,7 +107,6 @@ jobs:
           wget ${{ github.event.inputs.DL_URL }}
           unzip *.zip
           ls
-          rm *.zip
       - name: Make Download
         run: |
           df -h
