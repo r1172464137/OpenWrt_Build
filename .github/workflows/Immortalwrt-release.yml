@@ -135,6 +135,7 @@ jobs:
           rm -rf ./artifact/
           mkdir -p ./artifact/
           mv openwrt/bin/targets/x86/64/*combined-efi.img* ./artifact/
+          
           cd ./artifact/
           ls -Ahl
           gzip -d *.gz && exit 0
@@ -144,6 +145,7 @@ jobs:
           sha256sum openwrt*x86* | tee X86-OpenWrt-$(date +%Y-%m-%d)-${{ env.latest_release }}.sha256sum
           zip X86-OpenWrt-$(date +%Y-%m-%d)-${{ env.latest_release }}-ext4.zip *ext4-combined*
           zip X86-OpenWrt-$(date +%Y-%m-%d)-${{ env.latest_release }}-sfs.zip *squashfs-combined*
+          zip dl.zip ../openwrt/dl/*
           cd ../openwrt
           cp .config ../artifact/config-full.seed
           ./scripts/diffconfig.sh > ../artifact/config-diff.seed
