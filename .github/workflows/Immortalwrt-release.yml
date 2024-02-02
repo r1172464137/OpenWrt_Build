@@ -2,12 +2,11 @@ name: Immortalwrt release
 
 on:
   workflow_dispatch:
-  
+          
 env:
   TZ: Asia/Shanghai
   
 jobs:
-
   build:
     
     runs-on: ubuntu-22.04
@@ -85,6 +84,11 @@ jobs:
           mv ../SEED/config-release.seed .config
           sed -i '/CONFIG_TARGET_ROOTFS_SQUASHFS/d' .config
           make defconfig
+      - name: Cache
+        uses: HiGarfield/cachewrtbuild@main
+        with:
+          mixkey: ${{ env.TARGET_DEVICE_ARCH }}
+          prefix: ${{ github.workspace }}/openwrt
       - name: Make Download
         run: |
           df -h
