@@ -106,6 +106,7 @@ jobs:
           cd openwrt/dl
           wget ${{ github.event.inputs.DL_URL }}
           unzip *.zip
+          ls
           rm *.zip
       - name: Make Download
         run: |
