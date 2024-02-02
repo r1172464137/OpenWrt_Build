@@ -2,7 +2,14 @@ name: Immortalwrt release
 
 on:
   workflow_dispatch:
-          
+    inputs:
+      DL_URL:
+        description: 'dl下载链接'
+        required: false
+        type: string
+
+     
+             
 env:
   TZ: Asia/Shanghai
   
