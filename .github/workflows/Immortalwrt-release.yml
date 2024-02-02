@@ -68,7 +68,9 @@ jobs:
           echo "latest_release=${latest_release}" >>$GITHUB_ENV
       - name: Prepare Package
         run: |
+          pwd
           cd openwrt
+          pwd
           cp -f ../SCRIPTS/prepare_package.sh ./prepare_package.sh
           /bin/bash prepare_package.sh
       - name: Make Config
