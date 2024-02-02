@@ -24,6 +24,8 @@
 * 原汁原味非杂交! 感谢Immortalwrt/R2S Club/R4S Club/天灵/GC/QC等诸多大佬的努力!
 * 支持scp和sftp
 * 原生OP内置升级可用,固件重置可用
+* 可用dl文件加速make download
+* 缓存工具链，编译更迅速
 
 ## 插件清单
 - app:arpbind
