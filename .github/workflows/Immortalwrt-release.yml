@@ -7,7 +7,11 @@ on:
         description: 'dl下载链接'
         required: false
         type: string
-
+      DL_BOOL:
+        description: '是否使用链接加速dl'
+        required: true
+        default: 'false'
+        type: boolean
      
              
 env:
@@ -15,7 +19,6 @@ env:
   
 jobs:
   build:
-    
     runs-on: ubuntu-22.04
     if: github.repository_owner_id == github.event.sender.id || github.event_name == 'schedule'
     
@@ -96,6 +99,14 @@ jobs:
         with:
           mixkey: ${{ env.TARGET_DEVICE_ARCH }}
           prefix: ${{ github.workspace }}/openwrt
+      - name: Download preview DL
+        if: github.event.inputs.DL_BOOL == 'true'
+        run: |
+          mkdir -p openwrt/dl
+          cd openwrt/dl
+          wget ${{ github.event.inputs.DL_URL }}
+          unzip *.zip
+          rm *.zip
       - name: Make Download
         run: |
           df -h
