@@ -62,7 +62,11 @@ jobs:
       - name: Prepare Sources
         id: prepare
         run: |
-          sudo chown -R runner:runner /home/runner/work/OpenWrt_Build
+          pwd
+          sudo mkdir -p /workdir
+          sudo chown $USER:$GROUPS /workdir          
+          pwd
+          ls
           latest_release="$(curl -s https://github.com/immortalwrt/immortalwrt/tags | grep -Eo "v[0-9\.]+\-*r*c*[0-9]*.tar.gz" | sed -n '/[2-9][0-9]/p' | sed -n 1p | sed 's/.tar.gz//g')"
           git clone -b ${latest_release} --depth 1 https://github.com/immortalwrt/immortalwrt.git openwrt
           echo "latest_release=${latest_release}" >>$GITHUB_ENV
