@@ -14,7 +14,6 @@ jobs:
     if: github.repository_owner_id == github.event.sender.id || github.event_name == 'schedule'
     
     steps:
-      
       - name: Show system
         run: |
           echo -e "Total CPU cores\t: $(nproc)"
@@ -38,13 +37,14 @@ jobs:
           remove-android: 'true'
           remove-haskell: 'true'
           remove-codeql: 'true'
+          
+      - name: Checkout
+        uses: actions/checkout@main
         
-
       - name: Init build dependencies
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
-          df -h
           sudo swapoff -a
           sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
           sudo -E apt-get -qq update
@@ -62,19 +62,21 @@ jobs:
       - name: Prepare Sources
         id: prepare
         run: |
-          pwd
-          sudo mkdir -p /workdir
-          sudo chown $USER:$GROUPS /workdir          
-          pwd
           ls
+          pwd
+          sudo chown -R runner:runner /home/runner/work/OpenWrt_Build
+          ls
+          pwd
           latest_release="$(curl -s https://github.com/immortalwrt/immortalwrt/tags | grep -Eo "v[0-9\.]+\-*r*c*[0-9]*.tar.gz" | sed -n '/[2-9][0-9]/p' | sed -n 1p | sed 's/.tar.gz//g')"
           git clone -b ${latest_release} --depth 1 https://github.com/immortalwrt/immortalwrt.git openwrt
           echo "latest_release=${latest_release}" >>$GITHUB_ENV
       - name: Prepare Package
         run: |
           pwd
+          ls
           cd openwrt
           pwd
+          ls
           cp -f ../SCRIPTS/prepare_package.sh ./prepare_package.sh
           /bin/bash prepare_package.sh
       - name: Make Config
