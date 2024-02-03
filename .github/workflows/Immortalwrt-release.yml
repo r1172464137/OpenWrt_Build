@@ -169,7 +169,7 @@ jobs:
           allowUpdates: true
           prerelease: false
           tag: ${{ env.latest_release }}
-          commit: 23.05
+          commit: main
           replacesArtifacts: true
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: ./artifact/*.zip,./artifact/*.seed,./artifact/*.sha256sum
