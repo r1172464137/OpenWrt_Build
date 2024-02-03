@@ -6,14 +6,15 @@ clear
 sed -i 's/Os/O2/g' include/target.mk
 # 更新 Feeds
 sed -i '1i src-git mini https://github.com/r1172464137/openwrt_package.git;mini' feeds.conf.default
+sed -i '2i src-git themejs https://github.com/r1172464137/openwrt_package.git;theme_js' feeds.conf.default
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
 
 ## 取消bootstrap为默认主题
-rm -rf feeds/luci/themes/luci-theme-argon
-rm -rf feeds/luci/applications/luci-app-argon-config
-git clone https://github.com/sbwml/luci-theme-argon && mv -n luci-theme-argon/luci-theme-argon feeds/luci/themes/ && mv -n luci-theme-argon/luci-app-argon-config feeds/luci/applications/; rm -rf luci-theme-argon
+# rm -rf feeds/luci/themes/luci-theme-argon
+# rm -rf feeds/luci/applications/luci-app-argon-config
+# git clone https://github.com/sbwml/luci-theme-argon && mv -n luci-theme-argon/luci-theme-argon feeds/luci/themes/ && mv -n luci-theme-argon/luci-app-argon-config feeds/luci/applications/; rm -rf luci-theme-argon
 sed -i '/set luci.main.mediaurlbase=\/luci-static\/bootstrap/d' feeds/luci/themes/luci-theme-bootstrap/root/etc/uci-defaults/30_luci-theme-bootstrap
 sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
 
